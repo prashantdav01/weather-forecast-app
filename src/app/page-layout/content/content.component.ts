@@ -31,6 +31,7 @@ const ELEMENT_DATA: PeriodicElement[] = [
 })
 export class ContentComponent implements OnInit {
 
+  gitLocation: any
   //variables
   startDate: Date | null = null;
   endDate: Date | null = null;
@@ -71,6 +72,7 @@ export class ContentComponent implements OnInit {
 
       if (this.startDate && this.startDate < minStartDate) {
         this.startDate = null;
+        this.gitLocation = 'Office';
       }
     }
   }
