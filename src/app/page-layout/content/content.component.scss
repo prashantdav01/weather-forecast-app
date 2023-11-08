@@ -1,0 +1,14 @@
+::ng-deep .date-range-container{
+  .mat-form-field-appearance-fill .mat-form-field-flex{
+      align-items: center;
+  }
+
+  .mat-form-field.mat-form-field.mat-form-field-appearance-outline>div.mat-form-field-wrapper>div.mat-form-field-flex>div.mat-form-field-infix {
+      padding: 0em 0em 0.4em 0px !important;
+      border-top: 0.64375em solid transparent;
+  }
+
+  .mat-form-field-appearance-outline .mat-form-field-outline {
+      color: #D0D9E5;
+  }
+}

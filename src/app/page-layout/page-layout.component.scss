@@ -1,0 +1,16 @@
+article {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  background-color: #fafafa;
+}
+
+footer {
+  margin-top: auto;
+}
+
+.sticky-top-custom {
+  position: sticky;
+  top: 0px;
+  z-index: 3;
+}
