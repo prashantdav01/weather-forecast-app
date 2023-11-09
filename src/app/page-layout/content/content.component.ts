@@ -1,8 +1,38 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { MatDatepicker, MatDatepickerInputEvent } from '@angular/material/datepicker';
+import { Component, Injectable, OnInit, ViewChild } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MatDatepicker } from '@angular/material/datepicker';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import {
+  MatDateRangeSelectionStrategy,
+  DateRange,
+  MAT_DATE_RANGE_SELECTION_STRATEGY,
+} from '@angular/material/datepicker';
+import { DateAdapter } from '@angular/material/core';
+
+@Injectable()
+export class SevenDayRangeSelectionStrategy<D> implements MatDateRangeSelectionStrategy<D> {
+  constructor(private _dateAdapter: DateAdapter<D>) {}
+
+  selectionFinished(date: D | null): DateRange<D> {
+    return this._createSevenDayRange(date);
+  }
+
+  createPreview(activeDate: D | null): DateRange<D> {
+    return this._createSevenDayRange(activeDate);
+  }
+
+  private _createSevenDayRange(date: D | null): DateRange<D> {
+    if (date) {
+      const start = this._dateAdapter.addCalendarDays(date, 0);
+      const end = this._dateAdapter.addCalendarDays(date, 6);
+      return new DateRange<D>(start, end);
+    }
+
+    return new DateRange<D>(null, null);
+  }
+}
 
 export interface PeriodicElement {
   cityName: string;
@@ -27,14 +57,19 @@ const ELEMENT_DATA: PeriodicElement[] = [
 @Component({
   selector: 'app-content',
   templateUrl: './content.component.html',
-  styleUrls: ['./content.component.scss']
+  styleUrls: ['./content.component.scss'],
+  providers: [
+    {
+      provide: MAT_DATE_RANGE_SELECTION_STRATEGY,
+      useClass: SevenDayRangeSelectionStrategy,
+    },
+  ],
 })
 export class ContentComponent implements OnInit {
 
   gitLocation: any
   //variables
-  startDate: Date | null = null;
-  endDate: Date | null = null;
+
 
   dataSource = new MatTableDataSource<any>(ELEMENT_DATA);
   displayedColumns: string[] = ['position', 'cityName', 'weight', 'symbol'];
@@ -42,39 +77,32 @@ export class ContentComponent implements OnInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
   @ViewChild('picker') picker: MatDatepicker<Date> | undefined;
+  @ViewChild('startDateInput') startDateInput: any;
+  @ViewChild('endDateInput') endDateInput: any;
+  rangeForm!: FormGroup;
 
 
-  constructor() { }
+  constructor(
+    private fb: FormBuilder,
 
-  ngOnInit(): void { }
+  ) { }
+
+  ngOnInit(): void {
+    this.rangeForm = this.fb.group({
+      start: [null, Validators.required],
+      end: [null, Validators.required],
+    });
+  }
 
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
   }
 
-  maxDateRange: number = 7;
-  startDateChanged(event: MatDatepickerInputEvent<Date>): void {
-    if (event.value) {
-      const maxEndDate = new Date(event.value);
-      maxEndDate.setDate(maxEndDate.getDate() + this.maxDateRange - 1);
-
-      if (this.endDate && this.endDate > maxEndDate) {
-        this.endDate = null;
-      }
-    }
-  }
-
-  endDateChanged(event: MatDatepickerInputEvent<Date>): void {
-    if (event.value) {
-      const minStartDate = new Date(event.value);
-      minStartDate.setDate(minStartDate.getDate() - this.maxDateRange + 1);
-
-      if (this.startDate && this.startDate < minStartDate) {
-        this.startDate = null;
-        this.gitLocation = 'Office';
-      }
-    }
-  }
 }
 
+// const startDateValue = this.startDateInput.value;
+//     const endDateValue = this.endDateInput.value;
+
+//     console.log('Start Date:', startDateValue);
+//     console.log('End Date:', endDateValue);
