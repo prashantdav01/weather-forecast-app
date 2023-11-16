@@ -1,6 +1,6 @@
 <div class="bg-white">
   <nav class="navbar navbar-expand-lg navbar-light" aria-label="Fifth navbar example">
-    <div class="container-fluid">
+    <div class="container-fluid  justify-content-between">
       <a class="navbar-brand" href="/">
         <img src="./assets/images/App-Logo.svg" alt="appLogo" width="40" height="32">
         WeatherWise
@@ -9,9 +9,12 @@
         aria-controls="navbarsExample05" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
-
-      <div class="collapse navbar-collapse" id="navbarsExample05">
-        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+      <div class="collapse navbar-collapse justify-content-around" id="navbarsExample05">
+        <!-- <a class="navbar-brand" href="/">
+          <img src="./assets/images/App-Logo.svg" alt="appLogo" width="40" height="32">
+          WeatherWise
+        </a> -->
+        <ul class="navbar-nav mb-2 mb-lg-0">
           <li class="nav-item">
             <a class="nav-link active" aria-current="page" href="#">Home</a>
           </li>
@@ -30,14 +33,15 @@
             </ul>
           </li>
         </ul>
-        <form role="search" class="d-flex">
-          <div class="input-group border rounded">
+        <form role="search" class="">
+          <div class="input-group text-end border rounded">
             <input type="text" class="form-control border-0" placeholder="Search City" aria-label="Search City">
             <button class="btn btn-outline-secondary border-0" type="button" id="button-addon2"><mat-icon
                 class="pt-1">search</mat-icon></button>
           </div>
         </form>
       </div>
+
     </div>
   </nav>
 </div>

@@ -1,20 +1,19 @@
 <div class="container py-3">
   <header>
-    <div
-      class="pricing-header p-3 pb-md-4 mx-auto d-flex flex-column align-items-center justify-content-center text-center">
-      <h1 class="fs-1 fw-normal">T<span class="fs-3 fw-lighter">emperature.</span> A<span class="fs-3 fw-lighter">ir
+    <div class="p-3 pb-md-4 mx-auto d-flex flex-column align-items-center justify-content-center text-center">
+      <h1 class="fs-1 fw-medium">T<span class="fs-3 fw-lighter">emperature.</span> A<span class="fs-3 fw-lighter">ir
           Quality Index.</span> H<span class="fs-3 fw-lighter">istorical Weather Data.</span>
       </h1>
-      <p class="fs-5 fst-italic fw-lighter mx-auto text-center">Our weather app provides efficient access to
+      <p class="fs-6 fw-lighter w-75" style="text-align: justify;">Our weather app provides efficient access to
         comprehensive weather data, offering real-time temperature updates, accurate Air Quality Index readings, and
         insightful historical weather data. Stay informed with precision and reliability.</p>
     </div>
   </header>
 
   <main>
-    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-2 mb-3 text-center">
-      <div class="col">
-        <div class="card mb-4 rounded-3 shadow-sm">
+    <div class="row mb-3  g-2">
+      <div class="col-12 col-lg-6">
+        <div class="card h-100 mb-4 rounded-3 shadow-sm">
           <div class="card-header">
             <h2 class="my-0 fw-normal">Today's Temperature</h2>
             <h3 class="my-0 fw-light">Location Name</h3>
@@ -28,13 +27,13 @@
               <li>Sunrise at : </li>
               <li>Sunset at : </li>
             </ul>
-            <button type="button" class="btn btn-sm btn-outline-primary">More Details <span
+            <button type="button" class="btn btn-sm mt-3 btn-outline-primary">More Details <span
                 class="fw-bold">&rarr;</span></button>
           </div>
         </div>
       </div>
-      <div class="col">
-        <div class="card mb-4 rounded-3 shadow-sm">
+      <div class="col-12 col-lg-6">
+        <div class="card h-100 mb-4 rounded-3 shadow-sm">
           <div class="card-header">
             <h2 class="my-0 fw-normal">Air Quality Index</h2>
             <h3 class="my-0 fw-light">(AQI unit μg/m<sup>3</sup>)</h3>
@@ -42,23 +41,20 @@
           <div class="card-body">
             <h1 class="card-title pricing-card-title">$15<small class="text-body-secondary fw-light">/mo</small></h1>
             <ul class="list-unstyled mt-3 mb-4">
-              <li>20 users included</li>
-              <li>10 GB of storage</li>
-              <li>Priority email support</li>
-              <li>Help center access</li>
+              <li>Minimum Temperature : </li>
+              <li>Maximum Temperature : </li>
+              <li>Sunrise at : </li>
+              <li>Sunset at : </li>
             </ul>
-            <button type="button" class="btn btn-sm btn-outline-primary">More Details <span
+            <button type="button" class="btn btn-sm mt-3 btn-outline-primary">More Details <span
                 class="fw-bold">&rarr;</span></button>
           </div>
         </div>
       </div>
-    </div>
-    <div class="row row-cols-1 mb-3 text-center">
-      <div class="col">
-        <div class="card mb-4 rounded-3 shadow-sm">
+      <div class="col-12 col-lg-6">
+        <div class="card h-100 mb-4 rounded-3 shadow-sm">
           <div class="card-header">
             <h2 class="my-0 fw-normal">7-Day Forecast</h2>
-            <div class="mt-3">
               <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
                 <!-- Adjust the column size based on your layout -->
                 <mat-form-field class="w-100" appearance="outline" (click)="picker.open()">
@@ -71,22 +67,43 @@
                   <mat-date-range-picker #picker></mat-date-range-picker>
                 </mat-form-field>
               </div>
-            </div>
           </div>
-          <div class="card-body">
-            <h1 class="card-title pricing-card-title">$15<small class="text-body-secondary fw-light">/mo</small></h1>
+          <div class="card-body p-0">
+            <!-- <h1 class="card-title pricing-card-title">$15<small class="text-body-secondary fw-light">/mo</small></h1>
             <ul class="list-unstyled mt-3 mb-4">
               <li>20 users included</li>
               <li>10 GB of storage</li>
               <li>Priority email support</li>
               <li>Help center access</li>
-            </ul>
-            <button type="button" class="btn btn-sm btn-outline-primary">More Details <span
+            </ul> -->
+            <div class="row pe-3">
+              <div class="col-12"  style="max-height: 120px; overflow: auto;">
+                <table class="table table-responsive" >
+                  <thead>
+                    <tr>
+                      <th scope="col">Day</th>
+                      <th scope="col">Date</th>
+                      <th scope="col">Max Temp (°C)</th>
+                      <th scope="col">Min Temp (°C)</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let day of weatherData">
+                      <td>{{ day.date | date: 'EEE' }}</td>
+                      <td>{{ day.date | date: 'MMM d' }}</td>
+                      <td>{{ day.maxTemp }}</td>
+                      <td>{{ day.minTemp }}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <button type="button" class="btn btn-sm mt-3 btn-outline-primary">More Details <span
                 class="fw-bold">&rarr;</span></button>
           </div>
         </div>
       </div>
-
     </div>
     <div>
       <h2 class="display-6 text-center mb-4">Top Cities Weather Forecast</h2>
@@ -135,7 +152,7 @@
   <footer class="pt-4 my-md-5 pt-md-5 border-top">
     <div class="row">
       <div class="col-12 col-md">
-        <img class="mb-2" src="/docs/5.3/assets/brand/bootstrap-logo.svg" alt="" width="24" height="19">
+        <!-- <img class="mb-2" src="/docs/5.3/assets/brand/bootstrap-logo.svg" alt="" width="24" height="19"> -->
         <small class="d-block mb-3 text-body-secondary">© 2017–2023</small>
       </div>
       <div class="col-6 col-md">

@@ -70,6 +70,16 @@ export class ContentComponent implements OnInit {
   gitLocation: any
   //variables
 
+  weatherData = [
+    { date: new Date(), maxTemp: 25, minTemp: 15 },
+    { date: new Date(), maxTemp: 25, minTemp: 15 },
+    { date: new Date(), maxTemp: 25, minTemp: 15 },
+    { date: new Date(), maxTemp: 25, minTemp: 15 },
+    { date: new Date(), maxTemp: 25, minTemp: 15 },
+    { date: new Date(), maxTemp: 25, minTemp: 15 },
+    { date: new Date(), maxTemp: 25, minTemp: 15 },
+    // Add data for other days
+  ];
 
   dataSource = new MatTableDataSource<any>(ELEMENT_DATA);
   displayedColumns: string[] = ['position', 'cityName', 'weight', 'symbol'];
